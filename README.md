@@ -74,7 +74,7 @@ function addr1_and_timeout(transaction, args)
     transaction.Receiver ≠ "RFGEHKTFSLPIEGZYNVYALM6J4LJX4RPWERDWYS2PFKNVDWW3NG7MECQTJY" && return false
 
     # check timeout
-    return transaction.FirstValid > 67240
+    return 67240 < transaction.FirstValid
 end
 
 function main(transaction, args)
