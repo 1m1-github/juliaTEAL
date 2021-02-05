@@ -4,7 +4,7 @@ Translate julia -> TEAL as follows:
 
 1. Translate julia to ARM assembly
 2. Translate ARM assembly to TEAL
-3. Check TEAL rules (e.g. no backward branching) - Some checks can be performed on julia directly (before step 1.)
+3. Check TEAL rules (e.g. no backward branching) - Some checks can be performed on julia directly (before step 1.
 
 ## Example
 
