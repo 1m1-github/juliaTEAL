@@ -52,7 +52,7 @@ global ZeroAddress
 &&
 ```
 
-...would translate into the following julia code
+...could be translated from the following julia code
 
 ```
 function addr2_and_secret(transaction, args)
