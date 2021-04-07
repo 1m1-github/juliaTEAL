@@ -6,7 +6,63 @@ Translate julia -> TEAL as follows:
 2. Translate ARM assembly to TEAL
 3. Check TEAL rules (e.g. no backward branching) - Some checks can be performed on julia directly (before step 1.
 
-## Example
+## Example 1
+
+Consider the "Simple PyTeal Example" (https://developer.algorand.org/docs/features/asc1/teal/pyteal/)
+
+The following TEAL code...
+
+```
+txn TypeEnum
+int 1
+==
+txn Receiver
+addr ZZAF5ARA4MEC5PVDOP64JM5O5MQST63Q2KOY2FLYFLXXD3PFSNJJBYAFZM
+==
+&&
+txn CloseRemainderTo
+global ZeroAddress
+==
+&&
+txn AssetCloseTo
+global ZeroAddress
+==
+&&
+```
+
+...could be translated from the following julia code
+
+```
+function main(transaction, args)
+    
+    # checks
+    transaction.TypeEnum ≠ 1 && return false
+    transaction.Receiver ≠ "ZZAF5ARA4MEC5PVDOP64JM5O5MQST63Q2KOY2FLYFLXXD3PFSNJJBYAFZM" && return false
+    transaction.CloseRemainderTo ≠ ZeroAddress && return false
+    transaction.AssetCloseTo ≠ ZeroAddress && return false
+
+    # all good
+    return true
+end
+```
+
+or from the following
+
+```
+function main(transaction, args)
+    typeEnumCheck = transaction.TypeEnum ≠ 1
+    receiverCheck = transaction.Receiver ≠ "ZZAF5ARA4MEC5PVDOP64JM5O5MQST63Q2KOY2FLYFLXXD3PFSNJJBYAFZM"
+    closeRemainderToCheck = transaction.CloseRemainderTo ≠ ZeroAddress
+    assetCloseToCheck = transaction.AssetCloseTo ≠ ZeroAddress
+
+    return typeEnumCheck && receiverCheck && closeRemainderToCheck && assetCloseToCheck
+end
+```
+
+or in many other ways according to julia.
+
+
+## Example 2
 
 Consider the example provided at the bottom of https://developer.algorand.org/docs/features/asc1/teal/
 
@@ -86,7 +142,6 @@ function main(transaction, args)
     1000000 < transaction.Fee && return false
 
     # check ReKey
-    global ZeroAddress
     transaction.RekeyTo ≠ ZeroAddress && return false
 
     # all good
