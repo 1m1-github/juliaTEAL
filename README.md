@@ -1,3 +1,5 @@
+this project will be developed as part of the larger project: https://github.com/1m1-github/1m1
+
 # juliaTEAL
 
 Translate julia -> TEAL as follows:
